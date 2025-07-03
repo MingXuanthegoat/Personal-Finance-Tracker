@@ -2,7 +2,7 @@
 import { useLoaderData } from "react-router-dom";
 
 //  helper functions
-import { fetchData } from "../Helpers";
+import { fetchData } from "../helpers";
 
 // loader
 export function dashboardLoader() {
@@ -15,8 +15,8 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h2>Hello</h2>
-      Username: {userName}
+      <h1>{userName}</h1>
+      Dashboard
     </div>
   );
 };

@@ -1,13 +1,16 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-// routes
-import Dashboard, { dashboardLoader } from "./Pages/Dashboard";
+// Layouts
+import Main, { mainLoader } from "./layouts/Main";
+
+// Actions
+import { logoutAction } from "./actions/logout";
+
+// Routes
+import Dashboard, { dashboardLoader } from "./pages/Dashboard";
 import Error from "./pages/Error";
 
-//Layouts
-import Main, { mainLoader } from "./layout/Main";
-
-let router = createBrowserRouter([
+const router = createBrowserRouter([
   {
     path: "/",
     element: <Main />,
@@ -22,7 +25,7 @@ let router = createBrowserRouter([
       },
       {
         path: "logout",
-        element: <p>logged out!</p>,
+        action: logoutAction,
       },
     ],
   },
