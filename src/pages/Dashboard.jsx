@@ -8,32 +8,30 @@ import { toast } from "react-toastify";
 import Intro from "../components/Intro";
 
 //  helper functions
-import { fetchData } from "../helpers"
+import { fetchData } from "../helpers";
 
 // loader
 export function dashboardLoader() {
   const userName = fetchData("userName");
-  return { userName }
+  return { userName };
 }
 
 // action
 export async function dashboardAction({ request }) {
   const data = await request.formData();
-  const formData = Object.fromEntries(data)
+  const formData = Object.fromEntries(data);
   try {
-    throw new Error('Ya done')
+    throw new Error("Ya done");
+    localStorage.setItem("userName", JSON.stringify(formData.userName));
+    return toast.success(`Welcome, ${userName}`);
   } catch (e) {
-    throw new Error("There was a problem creating your account.")
+    throw new Error("There was a problem creating your account.");
   }
 }
 
 const Dashboard = () => {
-  const { userName } = useLoaderData()
+  const { userName } = useLoaderData();
 
-  return (
-    <>
-      {userName ? (<p>{userName}</p>) : <Intro />}
-    </>
-  )
-}
-export default Dashboard
+  return <>{userName ? <p>{userName}</p> : <Intro />}</>;
+};
+export default Dashboard;
