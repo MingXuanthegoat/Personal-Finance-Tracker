@@ -7,10 +7,11 @@ import { toast } from "react-toastify";
 // components
 import Intro from "../components/Intro";
 import AddBudgetForm from "../components/AddBudgetForm";
+import AddExpenseForm from "../components/AddExpenseForm";
+import BudgetItem from "../components/BudgetItem";
 
 //  helper functions
 import { createBudget, createExpense, fetchData, waait } from "../helpers";
-import AddExpenseForm from "../components/AddExpenseForm";
 
 // loader
 export function dashboardLoader() {
@@ -74,6 +75,12 @@ const Dashboard = () => {
                 <div className="flex-lg">
                   <AddBudgetForm />
                   <AddExpenseForm budgets={budgets} />
+                </div>
+                <h2>Existing Budgets</h2>
+                <div className="budgets">
+                  {budgets.map((budget) => (
+                    <BudgetItem budget={budget}></BudgetItem>
+                  ))}
                 </div>
               </div>
             ) : (
