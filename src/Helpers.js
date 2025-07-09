@@ -44,3 +44,36 @@ export const deleteItem = ({ key }) => {
 };
 
 export const waait = () => new Promise((res) => setTimeout(res, Math.random() * 2000));
+
+// total spent by budget
+export const calculateSpentByBudget = (budgetId) => {
+  const expenses = fetchData("expenses") ?? [];
+  const budgetSpent = expenses.reduce((acc, expenses) => {
+    if (expenses.budgetId !== budgetId) return acc;
+
+    return (acc += expenses.amount);
+  }, 0);
+
+  return budgetSpent;
+};
+
+// FORMATTING
+
+// format currency
+export const formatCurrency = (amt) => {
+  return amt.toLocaleString(undefined, {
+    style: "currency",
+    currency: "USD",
+  });
+};
+
+// format percentage
+export const formatPercentage = (amt) => {
+  return amt.toLocaleString(undefined, {
+    style: "percent",
+    minimumFractionDigits: 0,
+  });
+};
+
+// format date
+export const formatDateToLocaleString = (epoch) => new Date(epoch).toLocaleDateString();
