@@ -48,7 +48,7 @@ export async function dashboardAction({ request }) {
     }
   }
 
-  // New budget form
+  // New expense form
   if (_action == "createExpense") {
     try {
       createExpense({

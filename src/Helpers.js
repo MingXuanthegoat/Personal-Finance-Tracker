@@ -56,7 +56,7 @@ export const calculateSpentByBudget = (budgetId) => {
 export const getAllMatchingItems = ({ category, key, value }) => {
   const data = fetchData(category) ?? [];
 
-  return data.filter((item) => (item.key = value));
+  return data.filter((item) => item[key] == value);
 };
 
 // delete item from local storage
