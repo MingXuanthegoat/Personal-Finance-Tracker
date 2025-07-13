@@ -6,6 +6,7 @@ import { BanknotesIcon, TrashIcon } from "@heroicons/react/24/outline";
 
 // helper functions
 import { calculateSpentByBudget, formatCurrency, formatPercentage } from "../helpers";
+import { PlusCircleIcon } from "@heroicons/react/24/solid";
 
 const BudgetItem = ({ budget, showDelete = false }) => {
   const { id, name, amount, color } = budget;
@@ -49,6 +50,11 @@ const BudgetItem = ({ budget, showDelete = false }) => {
           <Link to={`/budget/${id}`} className="btn">
             <span>View Details</span>
             <BanknotesIcon width={20} />
+          </Link>
+
+          <Link to={`/budget/${id}/addUser`} className="btn">
+            <span>Add Users</span>
+            <PlusCircleIcon width={20} />
           </Link>
         </div>
       )}
