@@ -1,20 +1,20 @@
-import React from "react";
+// rrd imports
+import { Link, useFetcher } from "react-router-dom";
+
+// library import
+import { TrashIcon } from "@heroicons/react/24/solid";
 
 // helper imports
 import { formatCurrency, formatDateToLocaleString, getAllMatchingItems } from "../helpers";
-import { Link, useFetcher } from "react-router-dom";
-
-// library imports
-import { TrashIcon } from "@heroicons/react/24/solid";
 
 const ExpenseItem = ({ expense, showBudget }) => {
+  const fetcher = useFetcher();
+
   const budget = getAllMatchingItems({
     category: "budgets",
     key: "id",
     value: expense.budgetId,
   })[0];
-
-  const fetcher = useFetcher();
 
   return (
     <>
@@ -23,12 +23,15 @@ const ExpenseItem = ({ expense, showBudget }) => {
       <td>{formatDateToLocaleString(expense.createdAt)}</td>
       {showBudget && (
         <td>
-          <Link to={`budget/${budget.id}`} style={{ "--accent": budget.color }}>
+          <Link
+            to={`/budget/${budget.id}`}
+            style={{
+              "--accent": budget.color,
+            }}>
             {budget.name}
           </Link>
         </td>
       )}
-
       <td>
         <fetcher.Form method="post">
           <input type="hidden" name="_action" value="deleteExpense" />
@@ -44,5 +47,4 @@ const ExpenseItem = ({ expense, showBudget }) => {
     </>
   );
 };
-
 export default ExpenseItem;

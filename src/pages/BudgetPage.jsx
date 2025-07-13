@@ -1,21 +1,18 @@
-import React from "react";
+// rrd imports
+import { useLoaderData } from "react-router-dom";
+
+// library
+import { toast } from "react-toastify";
+
+// components
+import AddExpenseForm from "../components/AddExpenseForm";
+import BudgetItem from "../components/BudgetItem";
+import Table from "../components/Table";
 
 // helpers
 import { createExpense, deleteItem, getAllMatchingItems } from "../helpers";
 
-// rrd imports
-import { useLoaderData } from "react-router-dom";
-
-// components
-import BudgetItem from "../components/BudgetItem";
-import AddExpenseForm from "../components/AddExpenseForm";
-import ExpenseItem from "../components/ExpenseItem";
-import Table from "../components/Table";
-
-// library imports
-import { toast } from "react-toastify";
-
-// Loader
+// loader
 export async function budgetLoader({ params }) {
   const budget = await getAllMatchingItems({
     category: "budgets",
@@ -30,7 +27,7 @@ export async function budgetLoader({ params }) {
   });
 
   if (!budget) {
-    throw new Error("The budget you're trying to find does not exist!");
+    throw new Error("The budget you’re trying to find doesn’t exist");
   }
 
   return { budget, expenses };
@@ -40,21 +37,8 @@ export async function budgetLoader({ params }) {
 export async function budgetAction({ request }) {
   const data = await request.formData();
   const { _action, ...values } = Object.fromEntries(data);
-  // Delete budget
-  if (_action == "deleteExpense") {
-    try {
-      deleteItem({
-        key: "expenses",
-        id: values.expenseId,
-      });
-      return toast.success(`Expense deleted!`);
-    } catch (e) {
-      throw new Error("There was a problem deleting your expense.");
-    }
-  }
 
-  // New expense form
-  if (_action == "createExpense") {
+  if (_action === "createExpense") {
     try {
       createExpense({
         name: values.newExpense,
@@ -64,6 +48,18 @@ export async function budgetAction({ request }) {
       return toast.success(`Expense ${values.newExpense} created!`);
     } catch (e) {
       throw new Error("There was a problem creating your expense.");
+    }
+  }
+
+  if (_action === "deleteExpense") {
+    try {
+      deleteItem({
+        key: "expenses",
+        id: values.expenseId,
+      });
+      return toast.success("Expense deleted!");
+    } catch (e) {
+      throw new Error("There was a problem deleting your expense.");
     }
   }
 }
@@ -78,7 +74,7 @@ const BudgetPage = () => {
         "--accent": budget.color,
       }}>
       <h1 className="h2">
-        <span className="accent">{budget.name} Overview</span>
+        <span className="accent">{budget.name}</span> Overview
       </h1>
       <div className="flex-lg">
         <BudgetItem budget={budget} showDelete={true} />
@@ -87,7 +83,7 @@ const BudgetPage = () => {
       {expenses && expenses.length > 0 && (
         <div className="grid-md">
           <h2>
-            <span className="accent">{budget.name}</span>
+            <span className="accent">{budget.name}</span> Expenses
           </h2>
           <Table expenses={expenses} showBudget={false} />
         </div>
@@ -95,5 +91,4 @@ const BudgetPage = () => {
     </div>
   );
 };
-
 export default BudgetPage;

@@ -24,12 +24,13 @@ export function dashboardLoader() {
 
 // action
 export async function dashboardAction({ request }) {
-  const data = await request.formData();
-  const { _action, ...values } = Object.fromEntries(data);
   await waait();
 
-  // New user form
-  if (_action == "newUser") {
+  const data = await request.formData();
+  const { _action, ...values } = Object.fromEntries(data);
+
+  // new user submission
+  if (_action === "newUser") {
     try {
       localStorage.setItem("userName", JSON.stringify(values.userName));
       return toast.success(`Welcome, ${values.userName}`);
@@ -38,18 +39,19 @@ export async function dashboardAction({ request }) {
     }
   }
 
-  // New budget form
-  if (_action == "createBudget") {
+  if (_action === "createBudget") {
     try {
-      createBudget({ name: values.newBudget, amount: values.newBudgetAmount });
-      return toast.success(`Budget created`);
+      createBudget({
+        name: values.newBudget,
+        amount: values.newBudgetAmount,
+      });
+      return toast.success("Budget created!");
     } catch (e) {
       throw new Error("There was a problem creating your budget.");
     }
   }
 
-  // New expense form
-  if (_action == "createExpense") {
+  if (_action === "createExpense") {
     try {
       createExpense({
         name: values.newExpense,
@@ -62,14 +64,13 @@ export async function dashboardAction({ request }) {
     }
   }
 
-  // Delete expense
-  if (_action == "deleteExpense") {
+  if (_action === "deleteExpense") {
     try {
       deleteItem({
         key: "expenses",
         id: values.expenseId,
       });
-      return toast.success(`Expense deleted!`);
+      return toast.success("Expense deleted!");
     } catch (e) {
       throw new Error("There was a problem deleting your expense.");
     }
@@ -83,7 +84,9 @@ const Dashboard = () => {
     <>
       {userName ? (
         <div className="dashboard">
-          <h1>Welcome back, {userName} </h1>
+          <h1>
+            Welcome back, <span className="accent">{userName}</span>
+          </h1>
           <div className="grid-sm">
             {budgets && budgets.length > 0 ? (
               <div className="grid-lg">
@@ -94,7 +97,7 @@ const Dashboard = () => {
                 <h2>Existing Budgets</h2>
                 <div className="budgets">
                   {budgets.map((budget) => (
-                    <BudgetItem budget={budget}></BudgetItem>
+                    <BudgetItem key={budget.id} budget={budget} />
                   ))}
                 </div>
                 {expenses && expenses.length > 0 && (

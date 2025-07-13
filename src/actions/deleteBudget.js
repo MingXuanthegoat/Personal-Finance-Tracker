@@ -26,7 +26,7 @@ export function deleteBudget({ params }) {
     });
 
     toast.success("Budget deleted successfully!");
-  } catch {
+  } catch (e) {
     throw new Error("There was a problem deleting your budget.");
   }
 
