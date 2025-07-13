@@ -12,13 +12,7 @@ import BudgetItem from "../components/BudgetItem";
 import Table from "../components/Table";
 
 //  helper functions
-import {
-  createBudget,
-  createExpense,
-  deleteItem,
-  fetchData,
-  waait,
-} from "../helpers";
+import { createBudget, createExpense, deleteItem, fetchData, waait } from "../helpers";
 
 // loader
 export function dashboardLoader() {
@@ -110,9 +104,7 @@ const Dashboard = () => {
                   <div className="grid-md">
                     <h2>Recent Expenses</h2>
                     <Table
-                      expenses={expenses
-                        .sort((a, b) => b.createdAt - a.createdAt)
-                        .slice(0, 8)}
+                      expenses={expenses.sort((a, b) => b.createdAt - a.createdAt).slice(0, 8)}
                     />
                     {expenses.length > 8 && (
                       <Link to="expenses" className="btn btn--dark">

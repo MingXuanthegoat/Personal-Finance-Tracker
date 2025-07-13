@@ -72,8 +72,7 @@ const BudgetPage = () => {
       className="grid-lg"
       style={{
         "--accent": budget.color,
-      }}
-    >
+      }}>
       <h1 className="h2">
         <span className="accent">{budget.name}</span> Overview
       </h1>
