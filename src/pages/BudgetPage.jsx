@@ -73,14 +73,15 @@ const BudgetPage = () => {
       className="grid-lg"
       style={{
         "--accent": budget.color,
-      }}>
+      }}
+    >
       <h1 className="h2">
         <span className="accent">{budget.name}</span> Overview
       </h1>
       <div className="flex-lg">
         <BudgetItem budget={budget} showDelete={true} />
         <AddExpenseForm budgets={[budget]} />
-        <AddUserForm budgets={[budget]} />
+        {budget.isShared && <AddUserForm budgets={[budget]} />}
       </div>
       {expenses && expenses.length > 0 && (
         <div className="grid-md">

@@ -2,11 +2,18 @@
 import { Form, Link } from "react-router-dom";
 
 // library imports
-import { BanknotesIcon, TrashIcon } from "@heroicons/react/24/outline";
+import {
+  BanknotesIcon,
+  ShareIcon,
+  TrashIcon,
+} from "@heroicons/react/24/outline";
 
 // helper functions
-import { calculateSpentByBudget, formatCurrency, formatPercentage } from "../helpers";
-import { PlusCircleIcon } from "@heroicons/react/24/solid";
+import {
+  calculateSpentByBudget,
+  formatCurrency,
+  formatPercentage,
+} from "../helpers";
 
 const BudgetItem = ({ budget, showDelete = false }) => {
   const { id, name, amount, color } = budget;
@@ -17,7 +24,8 @@ const BudgetItem = ({ budget, showDelete = false }) => {
       className="budget"
       style={{
         "--accent": color,
-      }}>
+      }}
+    >
       <div className="progress-text">
         <h3>{name}</h3>
         <p>{formatCurrency(amount)} Budgeted</p>
@@ -35,15 +43,29 @@ const BudgetItem = ({ budget, showDelete = false }) => {
             method="post"
             action="delete"
             onSubmit={(event) => {
-              if (!confirm("Are you sure you want to permanently delete this budget?")) {
+              if (
+                !confirm(
+                  "Are you sure you want to permanently delete this budget?"
+                )
+              ) {
                 event.preventDefault();
               }
-            }}>
+            }}
+          >
             <button type="submit" className="btn">
               <span>Delete Budget</span>
               <TrashIcon width={20} />
             </button>
           </Form>
+
+          {!budget.isShared && (
+            <Form method="post" action="share">
+              <button type="submit" className="btn">
+                <span>Share Budget</span>
+                <ShareIcon width={20} />
+              </button>
+            </Form>
+          )}
         </div>
       ) : (
         <div className="flex-sm">

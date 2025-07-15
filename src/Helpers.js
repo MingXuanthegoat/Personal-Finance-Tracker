@@ -15,7 +15,7 @@ export const fetchData = (key) => {
 // Get all items from local storage
 export const getAllMatchingItems = ({ category, key, value }) => {
   const data = fetchData(category) ?? [];
-  return data.filter((item) => item[key] === value);
+  return data.filter((item) => item[key] == value);
 };
 
 // delete item from local storage
@@ -29,12 +29,13 @@ export const deleteItem = ({ key, id }) => {
 };
 
 // create budget
-export const createBudget = ({ name, amount }) => {
+export const createBudget = ({ name, amount, isShared = false }) => {
   const newItem = {
     id: crypto.randomUUID(),
     name: name,
     createdAt: Date.now(),
     amount: +amount,
+    isShared: isShared,
     color: generateRandomColor(),
   };
   const existingBudgets = fetchData("budgets") ?? [];
@@ -71,6 +72,23 @@ export const calculateSpentByBudget = (budgetId) => {
     return (acc += expense.amount);
   }, 0);
   return budgetSpent;
+};
+
+// UPDATING
+
+export const updateBudget = ({ id, name, amount, isShared }) => {
+  const newBudgets = fetchData("budgets")?.map((budget) => {
+    if (budget.id === id) {
+      return {
+        ...budget,
+        name: name,
+        amount: +amount,
+        isShared: isShared,
+      };
+    }
+    return budget;
+  });
+  return localStorage.setItem("budgets", JSON.stringify(newBudgets));
 };
 
 // FORMATTING
