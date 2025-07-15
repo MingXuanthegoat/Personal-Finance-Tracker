@@ -51,11 +51,6 @@ const BudgetItem = ({ budget, showDelete = false }) => {
             <span>View Details</span>
             <BanknotesIcon width={20} />
           </Link>
-
-          <Link to={`/budget/${id}/addUser`} className="btn">
-            <span>Add Users</span>
-            <PlusCircleIcon width={20} />
-          </Link>
         </div>
       )}
     </div>

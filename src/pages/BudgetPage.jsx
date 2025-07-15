@@ -11,6 +11,7 @@ import Table from "../components/Table";
 
 // helpers
 import { createExpense, deleteItem, getAllMatchingItems } from "../helpers";
+import AddUserForm from "../components/AddUserForm";
 
 // loader
 export async function budgetLoader({ params }) {
@@ -79,6 +80,7 @@ const BudgetPage = () => {
       <div className="flex-lg">
         <BudgetItem budget={budget} showDelete={true} />
         <AddExpenseForm budgets={[budget]} />
+        <AddUserForm budgets={[budget]} />
       </div>
       {expenses && expenses.length > 0 && (
         <div className="grid-md">
