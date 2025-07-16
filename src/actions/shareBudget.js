@@ -9,9 +9,9 @@ export function shareBudget({ params }) {
       isShared: true,
     });
     toast.success("Budget shared successfully!");
-  } catch (e) {
-    throw new Error("There was a problem sharing your budget.");
+  } catch (error) {
+    toast.error("Failed to share budget");
   }
 
-  return null; // No redirect needed, just update the budget
+  return null;
 }

@@ -74,23 +74,6 @@ export const calculateSpentByBudget = (budgetId) => {
   return budgetSpent;
 };
 
-// UPDATING
-
-export const updateBudget = ({ id, name, amount, isShared }) => {
-  const newBudgets = fetchData("budgets")?.map((budget) => {
-    if (budget.id === id) {
-      return {
-        ...budget,
-        name: name,
-        amount: +amount,
-        isShared: isShared,
-      };
-    }
-    return budget;
-  });
-  return localStorage.setItem("budgets", JSON.stringify(newBudgets));
-};
-
 // FORMATTING
 export const formatDateToLocaleString = (epoch) =>
   new Date(epoch).toLocaleDateString();
@@ -109,4 +92,19 @@ export const formatCurrency = (amt) => {
     style: "currency",
     currency: "USD",
   });
+};
+
+// UPDATING
+
+// update budget
+export const updateBudget = ({ id, isShared }) => {
+  const existingBudgets = fetchData("budgets") ?? [];
+
+  const updatedBudgets = existingBudgets.map((budget) => {
+    if (budget.id === id) {
+      return { ...budget, isShared: isShared };
+    }
+    return budget;
+  });
+  localStorage.setItem("budgets", JSON.stringify(updatedBudgets));
 };

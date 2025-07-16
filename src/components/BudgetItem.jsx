@@ -59,7 +59,15 @@ const BudgetItem = ({ budget, showDelete = false }) => {
           </Form>
 
           {!budget.isShared && (
-            <Form method="post" action="share">
+            <Form
+              method="post"
+              action="share"
+              onSubmit={(event) => {
+                if (!confirm("Are you sure you want to share this budget?")) {
+                  event.preventDefault();
+                }
+              }}
+            >
               <button type="submit" className="btn">
                 <span>Share Budget</span>
                 <ShareIcon width={20} />

@@ -10,7 +10,6 @@ import Main, { mainLoader } from "./layouts/Main";
 // Actions
 import { logoutAction } from "./actions/logout";
 import { deleteBudget } from "./actions/deleteBudget";
-import { shareBudget } from "./actions/shareBudget";
 
 // Routes
 import Dashboard, { dashboardAction, dashboardLoader } from "./pages/Dashboard";
@@ -20,7 +19,7 @@ import ExpensesPage, {
   expensesAction,
   expensesLoader,
 } from "./pages/ExpensesPage";
-
+import { shareBudget } from "./actions/shareBudget";
 const router = createBrowserRouter([
   {
     path: "/",
