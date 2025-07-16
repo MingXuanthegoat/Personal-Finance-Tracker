@@ -7,6 +7,7 @@ import {
   ShareIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
+import { ArrowUturnLeftIcon } from "@heroicons/react/24/solid";
 
 // helper functions
 import {
@@ -14,7 +15,6 @@ import {
   formatCurrency,
   formatPercentage,
 } from "../helpers";
-import { ArrowUturnLeftIcon } from "@heroicons/react/24/solid";
 
 const BudgetItem = ({ budget, showDelete = false }) => {
   const { id, name, amount, color } = budget;
@@ -60,30 +60,14 @@ const BudgetItem = ({ budget, showDelete = false }) => {
           </Form>
 
           {!budget.isShared ? (
-            <Form
-              method="post"
-              action="share"
-              onSubmit={(event) => {
-                if (!confirm("Are you sure you want to share this budget?")) {
-                  event.preventDefault();
-                }
-              }}
-            >
+            <Form method="post" action="share">
               <button type="submit" className="btn">
                 <span>Share Budget</span>
                 <ShareIcon width={20} />
               </button>
             </Form>
           ) : (
-            <Form
-              method="post"
-              action="unshare"
-              onSubmit={(event) => {
-                if (!confirm("Are you sure you want to undo share?")) {
-                  event.preventDefault();
-                }
-              }}
-            >
+            <Form method="post" action="unshare">
               <button type="submit" className="btn">
                 <span>Undo Share</span>
                 <ArrowUturnLeftIcon width={20} />

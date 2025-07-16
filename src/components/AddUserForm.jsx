@@ -38,15 +38,15 @@ const AddUserForm = ({ budgets }) => {
             <label htmlFor="newUser">User Name</label>
             <input
               type="text"
-              name="newUser"
-              id="newUser"
+              name="newUserName"
+              id="newUserName"
               placeholder="e.g., John Doe"
               ref={focusRef}
               required
             />
           </div>
         </div>
-        <input type="hidden" name="_action" value="createUser" />
+        <input type="hidden" name="_action" value="addUser" />
         <button type="submit" className="btn btn--dark" disabled={isSubmitting}>
           {isSubmitting ? (
             <span>Submitting…</span>

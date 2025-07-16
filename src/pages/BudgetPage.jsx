@@ -8,10 +8,15 @@ import { toast } from "react-toastify";
 import AddExpenseForm from "../components/AddExpenseForm";
 import BudgetItem from "../components/BudgetItem";
 import Table from "../components/Table";
+import AddUserForm from "../components/AddUserForm";
 
 // helpers
-import { createExpense, deleteItem, getAllMatchingItems } from "../helpers";
-import AddUserForm from "../components/AddUserForm";
+import {
+  createExpense,
+  createUser,
+  deleteItem,
+  getAllMatchingItems,
+} from "../helpers";
 
 // loader
 export async function budgetLoader({ params }) {
@@ -26,7 +31,6 @@ export async function budgetLoader({ params }) {
     key: "budgetId",
     value: params.id,
   });
-
   if (!budget) {
     throw new Error("The budget you’re trying to find doesn’t exist");
   }
@@ -61,6 +65,17 @@ export async function budgetAction({ request }) {
       return toast.success("Expense deleted!");
     } catch (e) {
       throw new Error("There was a problem deleting your expense.");
+    }
+  }
+
+  if (_action === "addUser") {
+    try {
+      createUser({
+        name: values.newUserName,
+      });
+      return toast.success(`User ${values.newUserName} added to budget!`);
+    } catch (e) {
+      throw new Error("There was a problem creating your user.");
     }
   }
 }

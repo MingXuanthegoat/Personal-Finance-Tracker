@@ -61,6 +61,20 @@ export const createExpense = ({ name, amount, budgetId }) => {
   );
 };
 
+// create user
+export const createUser = ({ name }) => {
+  const newItem = {
+    id: crypto.randomUUID(),
+    name: name,
+    createdAt: Date.now(),
+  };
+  const existingUsers = fetchData("users") ?? [];
+  return localStorage.setItem(
+    "users",
+    JSON.stringify([...existingUsers, newItem])
+  );
+};
+
 // total spent by budget
 export const calculateSpentByBudget = (budgetId) => {
   const expenses = fetchData("expenses") ?? [];
