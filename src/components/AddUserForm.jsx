@@ -47,6 +47,8 @@ const AddUserForm = ({ budgets }) => {
           </div>
         </div>
         <input type="hidden" name="_action" value="addUser" />
+        <input type="hidden" name="_budgetId" value={budgets[0].id} />
+
         <button type="submit" className="btn btn--dark" disabled={isSubmitting}>
           {isSubmitting ? (
             <span>Submitting…</span>

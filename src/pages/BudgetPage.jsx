@@ -16,6 +16,7 @@ import {
   createUser,
   deleteItem,
   getAllMatchingItems,
+  waait,
 } from "../helpers";
 
 // loader
@@ -40,6 +41,7 @@ export async function budgetLoader({ params }) {
 
 // action
 export async function budgetAction({ request }) {
+  await waait();
   const data = await request.formData();
   const { _action, ...values } = Object.fromEntries(data);
 
@@ -72,6 +74,7 @@ export async function budgetAction({ request }) {
     try {
       createUser({
         name: values.newUserName,
+        budgetId: values._budgetId,
       });
       return toast.success(`User ${values.newUserName} added to budget!`);
     } catch (e) {

@@ -62,11 +62,12 @@ export const createExpense = ({ name, amount, budgetId }) => {
 };
 
 // create user
-export const createUser = ({ name }) => {
+export const createUser = ({ name, budgetId }) => {
   const newItem = {
     id: crypto.randomUUID(),
     name: name,
     createdAt: Date.now(),
+    budgetId: budgetId,
   };
   const existingUsers = fetchData("users") ?? [];
   return localStorage.setItem(
