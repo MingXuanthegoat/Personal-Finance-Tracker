@@ -2,7 +2,7 @@
 import { toast } from "react-toastify";
 
 // helpers
-import { updateBudget } from "../helpers";
+import { deleteItem, getAllMatchingItems, updateBudget } from "../helpers";
 
 export function unshareBudget({ params }) {
   try {
@@ -10,9 +10,23 @@ export function unshareBudget({ params }) {
       id: params.id,
       isShared: false,
     });
+
+    const associatedUsers = getAllMatchingItems({
+      category: "users",
+      key: "budgetId",
+      value: params.id,
+    });
+
+    associatedUsers.forEach((user) => {
+      deleteItem({
+        key: "users",
+        id: user.id,
+      });
+    });
+
     toast.success("Undo shared successfully!");
   } catch (error) {
-    toast.error("Failed to undo share");
+    throw new Error("Failed to undo share");
   }
 
   return null;

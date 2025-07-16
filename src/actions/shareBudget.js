@@ -12,7 +12,7 @@ export function shareBudget({ params }) {
     });
     toast.success("Budget shared successfully!");
   } catch (error) {
-    toast.error("Failed to share budget");
+    throw new Error("Failed to share budget");
   }
 
   return null;

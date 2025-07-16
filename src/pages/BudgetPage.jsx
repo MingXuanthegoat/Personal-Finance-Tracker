@@ -32,11 +32,18 @@ export async function budgetLoader({ params }) {
     key: "budgetId",
     value: params.id,
   });
+
+  const users = await getAllMatchingItems({
+    category: "users",
+    key: "budgetId",
+    value: params.id,
+  });
+
   if (!budget) {
     throw new Error("The budget you’re trying to find doesn’t exist");
   }
 
-  return { budget, expenses };
+  return { budget, expenses, users };
 }
 
 // action
@@ -84,7 +91,7 @@ export async function budgetAction({ request }) {
 }
 
 const BudgetPage = () => {
-  const { budget, expenses } = useLoaderData();
+  const { budget, expenses, users } = useLoaderData();
 
   return (
     <div
@@ -94,7 +101,8 @@ const BudgetPage = () => {
       }}
     >
       <h1 className="h2">
-        <span className="accent">{budget.name}</span> Overview
+        <span className="accent">{budget.name}</span> Overview{" "}
+        {users && users.length > 0 && <small>({users.length} users)</small>}
       </h1>
       <div className="flex-lg">
         <BudgetItem budget={budget} showDelete={true} />
