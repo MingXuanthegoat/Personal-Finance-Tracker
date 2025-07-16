@@ -20,6 +20,7 @@ import ExpensesPage, {
   expensesLoader,
 } from "./pages/ExpensesPage";
 import { shareBudget } from "./actions/shareBudget";
+import { unshareBudget } from "./actions/unshareBudget";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
           {
             path: "share",
             action: shareBudget,
+          },
+          {
+            path: "unshare",
+            action: unshareBudget,
           },
         ],
       },
